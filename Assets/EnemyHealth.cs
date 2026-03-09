@@ -1,16 +1,14 @@
 using UnityEngine;
 
-public class EnemyHealth : MonoBehaviour
+public class EnemyHealth : Health
 {
-    public GameObject explosionPrefab;
+    public static int LivingEnemyCount;
 
-    private void OnTriggerEnter2D(Collider2D collision) => Die();
+    private void Awake() => LivingEnemyCount++;
 
-    private void Die()
+    protected override void Die()
     {
-        var explosion = Instantiate(explosionPrefab, transform.position,
-        transform.rotation);
-        Destroy(explosion, 1);
-        Destroy(gameObject);
+        LivingEnemyCount--;
+        base.Die();
     }
 }
